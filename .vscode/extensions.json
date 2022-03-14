@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "everettjf.pubspec-dependency-search",
+        "rodrigorahman.flutter-dart-utils",
+        "dart-code.flutter",
+        "esskar.vscode-flutter-i18n-json"
+    ]
+}
