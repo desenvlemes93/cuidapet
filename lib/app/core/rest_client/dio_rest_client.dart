@@ -1,4 +1,8 @@
 import 'package:cuidapet_mobile/app/core/helpers/environments.dart';
+import 'package:cuidapet_mobile/app/core/helpers/logger.dart';
+import 'package:cuidapet_mobile/app/core/local_storages/local_security_storage.dart';
+import 'package:cuidapet_mobile/app/core/local_storages/local_storage.dart';
+import 'package:cuidapet_mobile/app/core/rest_client/interceptors/auth_interceptor.dart';
 import 'package:cuidapet_mobile/app/core/rest_client/rest_client.dart';
 import 'package:cuidapet_mobile/app/core/rest_client/rest_client_exception.dart';
 import 'package:cuidapet_mobile/app/core/rest_client/rest_client_response.dart';
@@ -15,9 +19,22 @@ class DioRestClient implements RestClient {
   );
 
   DioRestClient({
+    required LocalStorage localStorage,
+    required LocalSecurityStorage localSecurityStorage,
+    required Logger log,
     BaseOptions? options,
   }) {
     _dio = Dio(options ?? _options);
+    _dio.interceptors.addAll(
+      [
+        LogInterceptor(),
+        AuthInterceptor(
+          localStorage: localStorage,
+          localSecurityStorage: localSecurityStorage,
+          log: log,
+        ),
+      ],
+    );
   }
 
   @override
@@ -38,7 +55,7 @@ class DioRestClient implements RestClient {
       Map<String, dynamic>? queryParameters,
       Map<String, dynamic>? headers}) async {
     try {
-      final response = await _dio.post(path,
+      final response = await _dio.post<T>(path,
           data: data,
           queryParameters: queryParameters,
           options: Options(headers: headers));

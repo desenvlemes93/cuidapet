@@ -8,9 +8,9 @@ class AppModule extends Module {
   @override
   final List<Bind> binds = [];
   @override
-  // TODO: implement imports
   List<Module> get imports => [
         CoreModule(),
+        RegisterModule(),
       ];
 
   @override

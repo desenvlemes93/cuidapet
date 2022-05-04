@@ -1,4 +1,6 @@
-import 'package:cuidapet_mobile/app/core/helpers/local_storages/local_storage.dart';
+
+
+import 'package:cuidapet_mobile/app/core/local_storages/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesLocalStorageImpl implements LocalStorage {
@@ -44,15 +46,15 @@ class SharedPreferencesLocalStorageImpl implements LocalStorage {
   Future<void> write<P>(String key, P value) async {
     final sp = await _instance;
     if (P == String) {
-      sp.setString(key, value as String) as P?;
+      sp.setString(key, value as String) ;
     } else if (P == int) {
-      sp.setInt(key, value as int) as P?;
+      sp.setInt(key, value as int) ;
     } else if (P == bool) {
-      sp.setBool(key, value as bool) as P?;
+      sp.setBool(key, value as bool) ;
     } else if (P == double) {
-      sp.setDouble(key, value as double) as P?;
+      sp.setDouble(key, value as double) ;
     } else if (P == List) {
-      sp.setStringList(key, value as List<String>) as P?;
+      sp.setStringList(key, value as List<String>) ;
     } else {
       throw Exception('Type not supported');
     }

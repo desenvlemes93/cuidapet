@@ -1,11 +1,11 @@
-import 'package:cuidapet_mobile/app/core/helpers/environments.dart';
+import 'package:cuidapet_mobile/app/core/push_notification/push_notification.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/size_screen_extension.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/theme_extension.dart';
-import 'package:cuidapet_mobile/app/core/ui/widgets/cuidapet_text_formfield.dart';
-import 'package:cuidapet_mobile/app/modules/auth/home/login/widget/login_form.dart';
-import 'package:cuidapet_mobile/app/modules/auth/home/login/widget/register_buttons.dart';
+import 'package:cuidapet_mobile/app/modules/auth/login/login_controller.dart';
+import 'package:cuidapet_mobile/app/modules/auth/login/widget/login_form.dart';
+import 'package:cuidapet_mobile/app/modules/auth/login/widget/register_buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -28,15 +28,12 @@ class _LoginPageState extends State<LoginPage> {
         height: 1.sh,
         child: Column(
           children: [
-            Text(
-              Environments.param('base_url') ?? 'Não configurado',
-            ),            
             Image.asset(
               'assets/images/logo.png',
               width: 150.w,
               fit: BoxFit.fill,
             ),
-            LoginForm(),
+            const LoginForm(),
             Row(
               children: [
                 Expanded(
@@ -63,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-            RegisterButtons(),
+            RegisterButtons(loginController: controller),
           ],
         ),
       ),

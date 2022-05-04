@@ -1,4 +1,6 @@
-import 'package:cuidapet_mobile/app/core/helpers/local_storages/local_security_storage.dart';
+
+
+import 'package:cuidapet_mobile/app/core/local_storages/local_security_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class FlutterSecureStorageLocalSecurityStorageImpl
